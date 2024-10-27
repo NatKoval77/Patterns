@@ -31,6 +31,7 @@ class Student(
             throw IllegalArgumentException("Неверный формат email!")
         if (phone != null && !isValidPhone(phone!!))
             throw IllegalArgumentException("Неверный формат номера!")
+        validate()
         println("Студент $id был добавлен успешно!")
         write()
     }
@@ -48,6 +49,19 @@ class Student(
         hashStudents["email"]?.toString(),
         hashStudents["git"]?.toString()
     )
+
+    fun validate() {
+        if (git != null && !anyContact())
+            throw IllegalArgumentException("Необходим хотя бы 1 контакт!")
+        else if (git == null && !anyContact())
+            throw IllegalArgumentException("Необходим git и хотя бы 1 контакт!")
+        else if (git == null)
+            throw IllegalArgumentException("Необходим git!")
+    }
+
+    fun anyContact(): Boolean {
+        return (tg != null || email != null || phone != null)
+    }
 
     fun write() {
         println(

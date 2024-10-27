@@ -6,9 +6,29 @@ class Student(
         fun isValidPhone(phone: String): Boolean {
             return phone.matches(Regex("^(\\+7[0-9]{10}|8[0-9]{10})\$"))
         }
+        fun isValidText(text: String): Boolean {
+            return text.matches(Regex("^[A-Za-zА-Яа-яЁё ]+$"))
+        }
+        fun isValidTg(tg: String): Boolean {
+            return tg.matches(Regex("^@[A-Za-z0-9_]+$"))
+        }
+        fun isValidGit(git: String): Boolean {
+            return git.matches(Regex("^github.com/[A-Za-z0-9_-]+$"))
+        }
+        fun isValidEmail(email: String): Boolean {
+            return email.matches(Regex("^[A-Za-z0-9_-]+@[A-Za-z0-9-.]+$"))
+        }
     }
 
     init {
+        if (!isValidText(surname) || !isValidText(name) || !isValidText(patronymic))
+            throw IllegalArgumentException("Неверный формат ФИО!")
+        if (tg != null && !isValidTg(tg!!))
+            throw IllegalArgumentException("Неверный формат телеграмм!")
+        if (git != null && !isValidGit(git!!))
+            throw IllegalArgumentException("Неверный формат Git!")
+        if (email != null && !isValidEmail(email!!))
+            throw IllegalArgumentException("Неверный формат email!")
         if (phone != null && !isValidPhone(phone!!))
             throw IllegalArgumentException("Неверный формат номера!")
         println("Студент $id был добавлен успешно!")

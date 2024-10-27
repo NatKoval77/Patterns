@@ -12,7 +12,7 @@ class Student(
         set(value) {
             field = value
         }
-    var firstname: String = name
+    var name: String = name
         get() = field
         set(value) {
             field = value
@@ -43,4 +43,10 @@ class Student(
             field = value
         }
 
+    fun write() {
+        println(
+            "Студент $id:\n" + "ФИО - $surname $name $patronymic; " + "Телеграм - ${tg?: "[не указано]"}; " +
+                    "Гит - ${git?: "[не указано]"}; " + "Почта - ${email?: "[не указано]"}; " + "Телефон - ${phone?: "[не указано]"}.\n"
+        )
+    }
 }

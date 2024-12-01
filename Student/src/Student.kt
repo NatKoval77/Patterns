@@ -51,10 +51,14 @@ class Student(
     )
 
     constructor(str: String) : this(
-        id = str.split(" ")[0].toInt(),
-        surname = str.split(" ")[1],
-        name = str.split(" ")[2],
-        patronymic = str.split(" ")[3],
+        id = str.split(" ")[0].toIntOrNull()
+            ?: throw ParsingException("Неверный формат ID!"),
+        surname = str.split(" ").getOrNull(1)
+            ?: throw ParsingException("Фамилия отсутствует!"),
+        name = str.split(" ").getOrNull(2)
+            ?: throw ParsingException("Имя отсутствует!"),
+        patronymic = str.split(" ").getOrNull(3)
+            ?: throw ParsingException("Отчество отсутствует!"),
         tg = str.split(" ").getOrNull(4),
         git = str.split(" ").getOrNull(5),
         email = str.split(" ").getOrNull(6),
@@ -96,5 +100,5 @@ class Student(
                     "Гит - ${git?: "[не указано]"}; " + "Почта - ${email?: "[не указано]"}; " + "Телефон - ${phone?: "[не указано]"}.\n"
         )
     }
-
 }
+class ParsingException(message: String) : RuntimeException(message)

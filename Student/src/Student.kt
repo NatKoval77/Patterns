@@ -1,10 +1,9 @@
 import java.io.File
 import java.io.IOException
 
-open class StudentBase(
-    val id: Int, val surname: String, val name: String, val patronymic: String, var tg: String? = null,
-    var git: String? = null, var email: String? = null, var phone: String? = null
-) {
+open class StudentBase(val id: Int, val surname: String, val name: String, val patronymic: String, var tg: String? = null,
+    var git: String? = null, var email: String? = null, var phone: String? = null)
+{
     companion object {
         fun isValidPhone(phone: String): Boolean {
             return phone.matches(Regex("^(\\+7[0-9]{10}|8[0-9]{10})\$"))
@@ -70,8 +69,8 @@ open class StudentBase(
     fun write() {
         println(
             "${this::class.simpleName} $id:\n" + "ФИО - $surname $name $patronymic; " +
-                    "Телеграм - ${tg ?: "[не указано]"}; " + "Гит - ${git ?: "[не указано]"}; " +
-                    "Почта - ${email ?: "[не указано]"}; " + "Телефон - ${phone ?: "[не указано]"}.\n"
+            "Телеграм - ${tg ?: "[не указано]"}; " + "Гит - ${git ?: "[не указано]"}; " +
+            "Почта - ${email ?: "[не указано]"}; " + "Телефон - ${phone ?: "[не указано]"}.\n"
         )
     }
 }
@@ -79,7 +78,8 @@ open class StudentBase(
 class Student(
     id: Int, surname: String, name: String, patronymic: String, tg: String? = null,
     git: String? = null, email: String? = null, phone: String? = null
-) : StudentBase(id, surname, name, patronymic, tg, git, email, phone) {
+)
+    : StudentBase(id, surname, name, patronymic, tg, git, email, phone) {
     companion object {
         fun readFromTxt(path: String): List<Student>{
             val file = File(path)
@@ -187,8 +187,14 @@ class Student_short(id: Int, val surnameIn: String, git: String, val contact: St
             what = "phone"
         println(
             "${this::class.simpleName} $id:\n" + "ФИО - $surnameIn; " + "git - $git; " +
-                    "$what - $contact.\n"
+            "$what - $contact.\n"
         )
+    }
+}
+
+class Data_table<T>(private val data: Array<Array<T>>) {
+    init {
+        require(data.isNotEmpty()) { "Таблица не может быть пустой!" }
     }
 }
 

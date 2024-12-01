@@ -50,6 +50,22 @@ class Student(
         hashStudents["git"]?.toString()
     )
 
+    constructor(str: String) : this(
+        id = str.split(" ")[0].toInt(),
+        surname = str.split(" ")[1],
+        name = str.split(" ")[2],
+        patronymic = str.split(" ")[3],
+        tg = str.split(" ").getOrNull(4),
+        git = str.split(" ").getOrNull(5),
+        email = str.split(" ").getOrNull(6),
+        phone = str.split(" ").getOrNull(7)
+    )
+
+    override fun toString(): String {
+        return "Student(id=$id, surname=$surname, name=$name, patronymic=$patronymic, " +
+                "tg=$tg, git=$git, email=$email, phone=$phone)"
+    }
+
     fun setContacts(tg: String? = this.tg, git: String? = this.git, email: String? = this.email, phone: String? = this.phone) {
         if (tg != null && !isValidTg(tg)) throw IllegalArgumentException("Неверный формат телеграмм!")
         if (git != null && !isValidGit(git)) throw IllegalArgumentException("Неверный формат Git!")

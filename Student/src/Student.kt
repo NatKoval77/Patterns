@@ -73,7 +73,6 @@ class Student(
     fun getIn(): String {
         return "$surname ${name.take(1)}.${patronymic.take(1)}."
     }
-
     fun getContact(): String {
         return when {
             tg != null -> "tg: $tg"
@@ -81,7 +80,6 @@ class Student(
             else -> "phone: $phone"
         }
     }
-
     fun getInfo(): String {
         val infoSt = "${getIn()}, git: $git, ${getContact()}"
         println(infoSt)
@@ -116,6 +114,31 @@ class Student(
         println(
             "Студент $id:\n" + "ФИО - $surname $name $patronymic; " + "Телеграм - ${tg?: "[не указано]"}; " +
                     "Гит - ${git?: "[не указано]"}; " + "Почта - ${email?: "[не указано]"}; " + "Телефон - ${phone?: "[не указано]"}.\n"
+        )
+    }
+}
+
+class Student_short(val id: Int, val surnameIn: String, val git: String, val contact: String){
+    init {
+        println("Cтудент $id (кратко) добавлен успешно!")
+        write()
+    }
+    constructor(student: Student):this(
+        student.id,
+        student.getIn(),
+        student.git.toString(), //?????????????
+        student.getContact()
+    )
+    constructor(id: Int, info: String):this(
+        id,
+        info.substringBefore(",").trim(),
+        info.substringAfter("git:").substringBefore(",").trim(),
+        info.substringAfter(",").trim()
+    )
+    fun write() {
+        println(
+            "Студент $id:\n" + "ФИО - $surnameIn; " + "Гит - $git; " +
+                    "Контакт - $contact.\n"
         )
     }
 }

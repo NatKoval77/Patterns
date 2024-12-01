@@ -70,6 +70,24 @@ class Student(
                 "tg=$tg, git=$git, email=$email, phone=$phone)"
     }
 
+    fun getIn(): String {
+        return "$surname ${name.take(1)}.${patronymic.take(1)}."
+    }
+
+    fun getContact(): String {
+        return when {
+            tg != null -> "tg: $tg"
+            email != null -> "email: $email"
+            else -> "phone: $phone"
+        }
+    }
+
+    fun getInfo(): String {
+        val infoSt = "${getIn()}, git: $git, ${getContact()}"
+        println(infoSt)
+        return infoSt
+    }
+
     fun setContacts(tg: String? = this.tg, git: String? = this.git, email: String? = this.email, phone: String? = this.phone) {
         if (tg != null && !isValidTg(tg)) throw IllegalArgumentException("Неверный формат телеграмм!")
         if (git != null && !isValidGit(git)) throw IllegalArgumentException("Неверный формат Git!")

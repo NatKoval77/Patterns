@@ -204,4 +204,11 @@ class Data_table<T>(private val data: Array<Array<T>>) {
     fun getRowCount(): Int = data.size
 }
 
+class Data_list<T : Comparable<T>>(private val elements: Array<T>){
+    init {
+        require(elements.isNotEmpty()) { "Массив не может быть пустой!" }
+        elements.sort()
+    }
+}
+
 class ParsingException(message: String) : RuntimeException(message)

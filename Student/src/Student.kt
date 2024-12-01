@@ -77,12 +77,11 @@ class Student(
     git: String? = null, email: String? = null, phone: String? = null
 ) : StudentBase(id, surname, name, patronymic, tg, git, email, phone) {
     companion object {
-        fun readFromTxt(path: String): Student{
+        fun readFromTxt(path: String): List<Student>{
             val file = File(path)
             if (!file.exists() || !file.canRead())
                 throw IOException("Path is incorrect!")
-            val line = file.readText().trim()
-            return Student(line)
+            return file.readLines().map { Student(it) }
         }
     }
     init {

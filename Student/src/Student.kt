@@ -147,7 +147,7 @@ class Student(
 }
 
 class Student_short(id: Int, val surnameIn: String, git: String, val contact: String)
-    : StudentBase(id, "", "", "", null, git) {
+    : StudentBase(id, "", "", "", null, git), Comparable<Student_short> {
     init {
         optValidate()
         println("Cтудент $id (кратко) добавлен успешно!")
@@ -190,6 +190,10 @@ class Student_short(id: Int, val surnameIn: String, git: String, val contact: St
             "$what - $contact.\n"
         )
     }
+
+    override fun compareTo(other: Student_short): Int {
+        return this.surnameIn.compareTo(other.surnameIn)
+    }
 }
 
 class Data_table<T>(private val data: Array<Array<T>>) {
@@ -204,7 +208,7 @@ class Data_table<T>(private val data: Array<Array<T>>) {
     fun getRowCount(): Int = data.size
 }
 
-abstract class Data_list<T : Comparable<T>>(private val elements: Array<T>){
+abstract class Data_list<T : Comparable<T>>(protected val elements: Array<T>){
     private val selected = mutableSetOf<Int>()
     init {
         require(elements.isNotEmpty()) { "Массив не может быть пустой!" }
@@ -218,5 +222,18 @@ abstract class Data_list<T : Comparable<T>>(private val elements: Array<T>){
     abstract fun getNames(): Array<String>
     abstract fun getData(): Data_table<T>
 }
+
+class Data_list_student_short(elements: Array<Student_short>) : Data_list<Student_short>(elements) {
+    override fun getNames(): Array<String> {
+        return arrayOf("Фамилия И.О.", "Гит", "Контакт")
+    }
+    override fun getData(): Data_table<Student_short> {
+        val data = elements.map { student ->
+            arrayOf(student)
+        }.toTypedArray()
+        return Data_table(data)
+    }
+}
+
 
 class ParsingException(message: String) : RuntimeException(message)

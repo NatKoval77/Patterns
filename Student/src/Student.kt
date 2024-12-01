@@ -59,6 +59,10 @@ open class StudentBase(
     fun anyContact(): Boolean {
         return (tg != null || email != null || phone != null)
     }
+    fun toTxt(): String {
+        return "$id $surname $name $patronymic " +
+                "${tg ?: ""} ${git ?: ""} ${email ?: ""} ${phone ?: ""}"
+    }
     override fun toString(): String {
         return "${this::class.simpleName}(id=$id, surname=$surname, name=$name, patronymic=$patronymic, " +
                 "tg=$tg, git=$git, email=$email, phone=$phone)"
@@ -82,6 +86,11 @@ class Student(
             if (!file.exists() || !file.canRead())
                 throw IOException("Path is incorrect!")
             return file.readLines().map { Student(it) }
+        }
+        fun writeToTxt(path: String, students: List<Student>) {
+            val file = File(path)
+            students.map { file.appendText(it.toTxt()
+                    + System.lineSeparator()) }
         }
     }
     init {

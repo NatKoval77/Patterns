@@ -1,37 +1,21 @@
 fun main() {
-    midtest()
-}
-
-fun midtest(){
-    val pathR = ".//testR.json"
-    val forRead = Students_list_JSON(pathR)
-    forRead.get_k_n_student_short_list(0,3)
-    val stListJson = Students_list_JSON()
-    val pathW = ".//testW.json"
-    stListJson.writeToJson(pathW)
-    stListJson.get_k_n_student_short_list(0,3)
-    val student = stListJson.findById(2)
-    println("Found student: $student\n")
-    val idRem = 3
-    stListJson.removeById(idRem)
-    println("After removing $idRem\n")
-    stListJson.get_k_n_student_short_list(0,3)
+    testThird()
 }
 
 fun testThird(){
     try {
-        val pathR = ".//stud.txt"
-        val pathW = ".//student.txt"
+        var pathR = ".//stud.txt"
+        var pathW = ".//student.txt"
         val studentListManager = Student_list_txt(pathR)
         val students = studentListManager.readFromTxt(pathR)
-        val student = studentListManager.findById(2)
+        var student = studentListManager.findById(2)
         println("Found student: $student\n")
         studentListManager.writeToTxt(pathW, students)
         studentListManager.get_k_n_student_short_list(2,1)
         println("Count: ${studentListManager.get_count()}\n")
         studentListManager.orderStudents()
         studentListManager.get_k_n_student_short_list(0,3)
-        val idRem = 3
+        var idRem = 3
         studentListManager.removeById(idRem)
         println("After removing $idRem\n")
         studentListManager.get_k_n_student_short_list(0,3)
@@ -40,10 +24,42 @@ fun testThird(){
             git = "github.com/RuMiJ", phone = "+78889990000")
         studentListManager.addStudent(ad)
         studentListManager.get_k_n_student_short_list(0,3)
-        val rep = Student(2, "Ruby", "John", "Milligan",
+        var rep = Student(2, "Ruby", "John", "Milligan",
             git = "github.com/RuMiJ", phone = "81234567890")
         studentListManager.replaceStudentById(2, rep)
         studentListManager.get_k_n_student_short_list(0,3)
+
+        pathR = ".//testR.json"
+        val forRead = Students_list_JSON(pathR)
+        forRead.get_k_n_student_short_list(0,3)
+        val stListJson = Students_list_JSON()
+        pathW = ".//testW.json"
+        stListJson.writeToJson(pathW)
+        stListJson.get_k_n_student_short_list(0,3)
+        student = stListJson.findById(2)
+        println("Found student: $student\n")
+        idRem = 3
+        stListJson.removeById(idRem)
+        println("After removing $idRem\n")
+        stListJson.get_k_n_student_short_list(0,3)
+
+        pathR = ".//read.yaml"
+        val stListYaml = Students_list_YAML(pathR)
+        stListYaml.readFromYaml(pathR)
+        pathW = ".//write.yaml"
+        student = stListYaml.findById(2)
+        println("Found student: $student\n")
+        idRem = 1
+        stListYaml.removeById(idRem)
+        println("After removing student with ID: $idRem\n")
+        stListYaml.writeToYaml(pathW)
+        stListYaml.get_k_n_student_short_list(0, 5)
+        stListYaml.orderStudents()
+        stListYaml.get_k_n_student_short_list(0, 5)
+        rep = Student(2, "Ruby", "John", "Milligan",
+            git = "github.com/RuMiJ", email = "rubymilligan@example.com", phone = "81234567890")
+        stListYaml.replaceStudentById(2, rep)
+        stListYaml.get_k_n_student_short_list(0, 5)
     }
     catch (e: Exception) {
         println(e.message)

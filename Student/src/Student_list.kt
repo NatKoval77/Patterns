@@ -1,6 +1,11 @@
-abstract class Students_list(protected var students: MutableList<Student> = mutableListOf()) {
-    abstract fun readFromFile(path: String): MutableList<Student>
-    abstract fun writeToFile(path: String)
+class Student_list(private var fileStrategy: FileStrategy, protected var students: MutableList<Student> = mutableListOf()) {
+    fun readFromFile(path: String): MutableList<Student> {
+        students = fileStrategy.read(path)
+        return students
+    }
+    fun writeToFile(path: String) {
+        fileStrategy.write(path, students)
+    }
     //c
     fun findById(id: Int): Student {
         return students.first { it.id == id}

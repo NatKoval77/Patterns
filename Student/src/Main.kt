@@ -6,32 +6,34 @@ fun testThird(){
     try {
         var pathR = ".//stud.txt"
         var pathW = ".//student.txt"
-        val studentListManager = Student_list_txt(pathR)
-        println("Found student: ${studentListManager.findById(2)}\n")
-        studentListManager.writeToFile(pathW)
-        println("Count: ${studentListManager.get_count()}\n")
-        studentListManager.orderStudents()
+        val stListTxt = Student_list(TxtFileStrategy())
+        stListTxt.readFromFile(pathR)
+        println("Found student: ${stListTxt.findById(2)}\n")
+        stListTxt.writeToFile(pathW)
+        println("Count: ${stListTxt.get_count()}\n")
+        stListTxt.orderStudents()
         println("Ordered:\n")
-        studentListManager.get_k_n_student_short_list(0,3)
+        stListTxt.get_k_n_student_short_list(0,3)
         var idRem = 3
-        studentListManager.removeById(idRem)
+        stListTxt.removeById(idRem)
         println("After removing $idRem\n")
-        studentListManager.get_k_n_student_short_list(0,3)
-        println("Count: ${studentListManager.get_count()}\n")
-        studentListManager.addStudent(
+        stListTxt.get_k_n_student_short_list(0,3)
+        println("Count: ${stListTxt.get_count()}\n")
+        stListTxt.addStudent(
             Student(3, "Tomb", "Raider", "Third",
             git = "github.com/RuMiJ", phone = "+78889990000"))
         println("After adding:\n")
-        studentListManager.get_k_n_student_short_list(0,5)
-        studentListManager.replaceStudentById(2,
+        stListTxt.get_k_n_student_short_list(0,5)
+        stListTxt.replaceStudentById(2,
             Student(2, "Ruby", "John", "Milligan",
             git = "github.com/RuMiJ", phone = "81234567890"))
         println("After replacing:\n")
-        studentListManager.get_k_n_student_short_list(0,3)
+        stListTxt.get_k_n_student_short_list(0,3)
         println("- - - END OF TXT! - - -\n")
 
         pathR = ".//testR.json"
-        val stListJson = Students_list_JSON(pathR)
+        val stListJson = Student_list(JsonFileStrategy())
+        stListJson.readFromFile(pathR)
         pathW = ".//testW.json"
         stListJson.writeToFile(pathW)
         stListJson.get_k_n_student_short_list(0,3)
@@ -43,7 +45,8 @@ fun testThird(){
         println("- - - END OF JSON! - - -\n")
 
         pathR = ".//read.yaml"
-        val stListYaml = Students_list_YAML(pathR)
+        val stListYaml = Student_list(YamlFileStrategy())
+        stListYaml.readFromFile(pathR)
         pathW = ".//write.yaml"
         println("Found student: ${stListYaml.findById(2)}\n")
         stListYaml.writeToFile(pathW)

@@ -1,6 +1,3 @@
-import java.io.File
-import java.io.IOException
-
 class Student(id: Int, surname: String, name: String, patronymic: String, tg: String? = null,
     git: String? = null, email: String? = null, phone: String? = null)
     : StudentBase(id, surname, name, patronymic, tg, git, email, phone) {

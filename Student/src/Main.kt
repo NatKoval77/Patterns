@@ -1,5 +1,21 @@
 fun main() {
-    testThird()
+    midtest()
+}
+
+fun midtest(){
+    val pathR = ".//testR.json"
+    val forRead = Students_list_JSON(pathR)
+    forRead.get_k_n_student_short_list(0,3)
+    val stListJson = Students_list_JSON()
+    val pathW = ".//testW.json"
+    stListJson.writeToJson(pathW)
+    stListJson.get_k_n_student_short_list(0,3)
+    val student = stListJson.findById(2)
+    println("Found student: $student\n")
+    val idRem = 3
+    stListJson.removeById(idRem)
+    println("After removing $idRem\n")
+    stListJson.get_k_n_student_short_list(0,3)
 }
 
 fun testThird(){

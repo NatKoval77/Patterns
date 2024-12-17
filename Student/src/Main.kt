@@ -15,6 +15,19 @@ fun main() {
     testDB()
 }
 
+fun execQ(q: String, con: Connection) {
+    con.createStatement().use { statement ->
+        val res = statement.executeQuery(q)
+        println("Query result:")
+        while (res.next()) {
+            println("ID: ${res.getInt("id")}, Name: ${res.getString("name")}, " +
+                    "Surname: ${res.getString("surname")}, Patronymic: ${res.getString("patronymic")}," +
+                    "Tg: ${res.getString("tg")}, Git: ${res.getString("git")}," +
+                    "Email: ${res.getString("email")}, Phone: ${res.getString("phone")}.")
+        }
+    }
+}
+
 fun testDB(){
     val url = "jdbc:postgresql://localhost:5432/postgres"
     val user = "postgres"
@@ -31,6 +44,14 @@ fun testDB(){
         stat = connection.createStatement()
         stat.execute(sql)
         println("SQL script exec success! (INSERT)")
+        // first query - not null field "phone"
+        // second query - all not null fiels
+        // third query - no more than 1 null field
+        val queries = File("src/SQL/selectData.sql").readText()
+        queries.split(";").forEach { query ->
+            val trimQ = query.trim()
+            if (trimQ.isNotEmpty()) execQ(trimQ, connection)
+        }
     } catch (e: Exception) {
         e.printStackTrace()
     } finally {

@@ -27,6 +27,10 @@ fun testDB(){
         var stat = connection.createStatement()
         stat.execute(sql)
         println("SQL script exec success! (CREATE)")
+        sql = File("src/SQL/insertData.sql").readText()
+        stat = connection.createStatement()
+        stat.execute(sql)
+        println("SQL script exec success! (INSERT)")
     } catch (e: Exception) {
         e.printStackTrace()
     } finally {

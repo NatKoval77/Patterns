@@ -1,5 +1,33 @@
+package src
+
+import Data.Data_list_student_short
+import FileList.JsonFileStrategy
+import FileList.TxtFileStrategy
+import FileList.YamlFileStrategy
+import Student.Student
+import Student.Student_list
+import Student.Student_short
+import java.io.File
+import java.sql.DriverManager
+import java.sql.Connection
+
 fun main() {
-    testThird()
+    testDB()
+}
+
+fun testDB(){
+    val url = "jdbc:postgresql://localhost:5432/postgres"
+    val user = "postgres"
+    val pass = "1234"
+    var connection: Connection? = null
+    try {
+        connection = DriverManager.getConnection(url, user, pass)
+        println("Connected to PostgreSQL database!")
+    } catch (e: Exception) {
+        e.printStackTrace()
+    } finally {
+        connection?.close()
+    }
 }
 
 fun testThird(){
@@ -21,12 +49,14 @@ fun testThird(){
         println("Count: ${stListTxt.get_count()}\n")
         stListTxt.addStudent(
             Student(3, "Tomb", "Raider", "Third",
-            git = "github.com/RuMiJ", phone = "+78889990000"))
+            git = "github.com/RuMiJ", phone = "+78889990000")
+        )
         println("After adding:\n")
         stListTxt.get_k_n_student_short_list(0,5)
         stListTxt.replaceStudentById(2,
             Student(2, "Ruby", "John", "Milligan",
-            git = "github.com/RuMiJ", phone = "81234567890"))
+            git = "github.com/RuMiJ", phone = "81234567890")
+        )
         println("After replacing:\n")
         stListTxt.get_k_n_student_short_list(0,3)
         println("- - - END OF TXT! - - -\n")
@@ -55,7 +85,8 @@ fun testThird(){
         stListYaml.get_k_n_student_short_list(0, 5)
         stListYaml.replaceStudentById(2,
             Student(2, "Ruby", "John", "Milligan",
-            git = "github.com/RuMiJ", email = "rubymilligan@example.com", phone = "81234567890"))
+            git = "github.com/RuMiJ", email = "rubymilligan@example.com", phone = "81234567890")
+        )
         println("After replacing:\n")
         stListYaml.get_k_n_student_short_list(0, 5)
         println("- - - END OF YAML! - - -\n")

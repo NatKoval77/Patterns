@@ -23,6 +23,10 @@ fun testDB(){
     try {
         connection = DriverManager.getConnection(url, user, pass)
         println("Connected to PostgreSQL database!")
+        var sql = File("src/SQL/createTable.sql").readText()
+        var stat = connection.createStatement()
+        stat.execute(sql)
+        println("SQL script exec success! (CREATE)")
     } catch (e: Exception) {
         e.printStackTrace()
     } finally {

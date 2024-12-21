@@ -6,12 +6,14 @@ import Student.Student
 import Student.Student_list
 import Student.Student_short
 import src.Student.Student_list_DB
+import src.Window.Window
 import java.io.File
 import java.sql.DriverManager
 import java.sql.Connection
 
 fun main() {
-    test()
+    val win = Window()
+    win.createWindow()
 }
 
 fun test() {
@@ -23,11 +25,11 @@ fun test() {
         sql = File("src/SQL/insertData.sql").readText()
         //db.executeQuery(sql)
         println("SQL script exec success! (INSERT)")
-        println("count students: ${db.getCount()}")
+        println("count students: ${db.get_count()}")
         println("id 4:\n")
-        db.getStudentById(4)
+        db.findById(4)
         println("was deleted student where id = 10!")
-        db.deleteStudent(4)
+        db.removeById(4)
         val queries = File("src/SQL/selectData.sql").readText()
         queries.split(";").forEach { query ->
             val trimQ = query.trim()
@@ -100,13 +102,13 @@ fun testThird(){
         println("Count: ${stListTxt.get_count()}\n")
         stListTxt.addStudent(
             Student(3, "Tomb", "Raider", "Third",
-            git = "github.com/RuMiJ", phone = "+78889990000")
+                git = "github.com/RuMiJ", phone = "+78889990000")
         )
         println("After adding:\n")
         stListTxt.get_k_n_student_short_list(0,5)
         stListTxt.replaceStudentById(2,
             Student(2, "Ruby", "John", "Milligan",
-            git = "github.com/RuMiJ", phone = "81234567890")
+                git = "github.com/RuMiJ", phone = "81234567890")
         )
         println("After replacing:\n")
         stListTxt.get_k_n_student_short_list(0,3)
@@ -136,7 +138,7 @@ fun testThird(){
         stListYaml.get_k_n_student_short_list(0, 5)
         stListYaml.replaceStudentById(2,
             Student(2, "Ruby", "John", "Milligan",
-            git = "github.com/RuMiJ", email = "rubymilligan@example.com", phone = "81234567890")
+                git = "github.com/RuMiJ", email = "rubymilligan@example.com", phone = "81234567890")
         )
         println("After replacing:\n")
         stListYaml.get_k_n_student_short_list(0, 5)

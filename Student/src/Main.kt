@@ -1,5 +1,3 @@
-package src
-
 import Data.Data_list_student_short
 import FileList.JsonFileStrategy
 import FileList.TxtFileStrategy
@@ -7,12 +5,47 @@ import FileList.YamlFileStrategy
 import Student.Student
 import Student.Student_list
 import Student.Student_short
+import src.Student.Student_list_DB
 import java.io.File
 import java.sql.DriverManager
 import java.sql.Connection
 
 fun main() {
-    testDB()
+    test()
+}
+
+fun test() {
+    val db = Student_list_DB.getInstance()
+    try {
+        var sql = File("src/SQL/createTable.sql").readText()
+        db.executeQuery(sql)
+        println("SQL script exec success! (CREATE)")
+        sql = File("src/SQL/insertData.sql").readText()
+        //db.executeQuery(sql)
+        println("SQL script exec success! (INSERT)")
+        println("count students: ${db.getCount()}")
+        println("id 4:\n")
+        db.getStudentById(4)
+        println("was deleted student where id = 10!")
+        db.deleteStudent(4)
+        val queries = File("src/SQL/selectData.sql").readText()
+        queries.split(";").forEach { query ->
+            val trimQ = query.trim()
+            if (trimQ.isNotEmpty()) {
+                val res = db.executeQuery(trimQ)
+                println("Query result:")
+                while (res?.next() == true) {
+                    println("ID: ${res.getInt("id")}, Name: ${res.getString("name")}, " +
+                            "Surname: ${res.getString("surname")}, Patronymic: ${res.getString("patronymic")}," +
+                            "Tg: ${res.getString("tg")}, Git: ${res.getString("git")}," +
+                            "Email: ${res.getString("email")}, Phone: ${res.getString("phone")}.")
+                }
+            }
+        }
+    }
+    catch (e: Exception){
+        e.printStackTrace()
+    }
 }
 
 fun execQ(q: String, con: Connection) {
@@ -36,17 +69,6 @@ fun testDB(){
     try {
         connection = DriverManager.getConnection(url, user, pass)
         println("Connected to PostgreSQL database!")
-        var sql = File("src/SQL/createTable.sql").readText()
-        var stat = connection.createStatement()
-        stat.execute(sql)
-        println("SQL script exec success! (CREATE)")
-        sql = File("src/SQL/insertData.sql").readText()
-        stat = connection.createStatement()
-        stat.execute(sql)
-        println("SQL script exec success! (INSERT)")
-        // first query - not null field "phone"
-        // second query - all not null fiels
-        // third query - no more than 1 null field
         val queries = File("src/SQL/selectData.sql").readText()
         queries.split(";").forEach { query ->
             val trimQ = query.trim()

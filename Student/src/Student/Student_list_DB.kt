@@ -37,7 +37,7 @@ class Student_list_DB private constructor() {
         }
     }
     // Получение студента по ID
-    fun getStudentById(id: Int) {
+    fun findById(id: Int) {
         val res = executeQuery("SELECT * FROM student WHERE id = ${id};")
         if (res != null) {
             while (res.next()) {
@@ -47,7 +47,7 @@ class Student_list_DB private constructor() {
         }
     }
     // Получение подсписка студентов
-    fun get_k_n_Student_Short(k: Int, n: Int): MutableList<Student_short> {
+    fun get_k_n_student_short_list(k: Int, n: Int): MutableList<Student_short> {
         val res = executeQuery("Select * FROM student WHERE id > ${k * n} ORDER BY id LIMIT ${n};")
         val studList = mutableListOf<Student_short>()
         res?.let {
@@ -58,6 +58,7 @@ class Student_list_DB private constructor() {
         }
         return studList
     }
+
     fun addStudent(student: Student) {
         val input = buildString {
             append("'${student.surname}', '${student.name}', '${student.patronymic}'")
@@ -68,15 +69,15 @@ class Student_list_DB private constructor() {
         }
         executeQuery("INSERT INTO student (surname, name, patronymic, tg, git, email, phone) VALUES ($input);")
     }
-    fun deleteStudent(id: Int) {
+    fun removeById(id: Int) {
         executeQuery("DELETE FROM student WHERE id=${id};")
     }
-    fun getCount(): Int {
+    fun get_count(): Int {
         val res = executeQuery("SELECT COUNT(*) FROM student;")
         return if (res?.next() == true) res.getInt("count")
         else 0
     }
-    fun replaceStudent(id: Int, student: Student) {
+    fun replaceStudentById(id: Int, student: Student) {
         val input = buildString {
             append("'${student.surname}', '${student.name}', '${student.patronymic}'")
             append(", ${student.tg?.let { "'$it'" } ?: "NULL"}")

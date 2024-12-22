@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Tabs extends JTabbedPane {
     public Tabs(){
-        JPanel panel1 = new Tabl();
+        JPanel panel1 = new StudentView();
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
         this.addTab("Student View List", panel1);

@@ -11,7 +11,7 @@ public class Window extends JFrame {
     public void createWindow(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add(new Tabs());
-        this.setMinimumSize(new Dimension(800,600));
+        this.setMinimumSize(new Dimension(800,365));
         this.pack();
         this.setVisible(true);
     }

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Contact extends JPanel{
-    private final Input inputField ;
+    private final Input inputField;
     public Contact(String title){
         super();
         this.setLayout(new GridLayout(2,1));

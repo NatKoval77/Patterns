@@ -11,5 +11,4 @@ public class Tabs extends JTabbedPane {
         this.addTab("Tab 2", panel2);
         this.addTab("Tab 3", panel3);
     }
-
 }

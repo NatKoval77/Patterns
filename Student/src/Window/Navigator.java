@@ -25,8 +25,8 @@ public class Navigator extends JPanel {
     }
 
     private void setupComponents() {
-        prevButton = new JButton("Previous");
-        nextButton = new JButton("Next");
+        prevButton = new JButton("<");
+        nextButton = new JButton(">");
         Font font = prevButton.getFont();
         prevButton.setFont(new Font(font.getName(), font.getStyle(), 15));
         nextButton.setFont(new Font(font.getName(), font.getStyle(), 15));
@@ -61,7 +61,6 @@ public class Navigator extends JPanel {
             maxCountOfPages = calculateMaxPages();
             updateTableData();
         });
-
         pageLabel = new JLabel("", JLabel.CENTER);
         pageLabel.setFont(new Font(font.getName(), font.getStyle(), 15));
     }

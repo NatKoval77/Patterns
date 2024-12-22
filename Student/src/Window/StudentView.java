@@ -11,5 +11,6 @@ public class StudentView extends JPanel {
         JScrollPane scroll = new JScrollPane(main);
         this.add(scroll,BorderLayout.CENTER);
         this.add(new Navigator(main),BorderLayout.SOUTH);
+        this.add(new Buttons(main),BorderLayout.EAST);
     }
 }

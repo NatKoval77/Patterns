@@ -36,7 +36,7 @@ public class MainTable extends JTable {
             {22, "Www X.Y.", "github.com/wwwxy", "{email=wwwxy@mail.ru}"},
             {23, "Xxx Y.Z.", "github.com/xxxyz", "{phone=+79996665551}"},
     };
-    public Object[] columnsNames = {"ID","initials", "gitHub", "contact"};
+    public Object[] columnsNames = {"ID","SurnameIN", "GitHub", "Contact"};
     private int clickCount = 0;
     private int lastSortedColumn = -1;
 
@@ -49,7 +49,7 @@ public class MainTable extends JTable {
         };
         this.setFillsViewportHeight(true);
         this.setModel(this.tableModel);
-        Font font = new Font("Arial", Font.PLAIN, 16); // Установка шрифта Arial, обычный, размер 16
+        Font font = new Font("Arial", Font.PLAIN, 16);
         this.setFont(font);
         this.setRowHeight(30);
         this.getTableHeader().setFont(font);

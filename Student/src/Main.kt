@@ -1,3 +1,5 @@
+package src
+
 import Data.Data_list_student_short
 import FileList.JsonFileStrategy
 import FileList.TxtFileStrategy
@@ -12,8 +14,7 @@ import java.sql.DriverManager
 import java.sql.Connection
 
 fun main() {
-    val win = Window()
-    win.createWindow()
+    Window.start()
 }
 
 fun test() {

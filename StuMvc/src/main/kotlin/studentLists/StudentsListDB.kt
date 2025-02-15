@@ -1,4 +1,8 @@
-import studentsLists.StudentListInterface
+package studentLists
+
+import DataListStudentShort
+import Student
+import StudentShort
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -23,9 +27,9 @@ class StudentsListDB private constructor(var view:View):StudentListInterface {
     init {
         try {
             connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/students",
+                "jdbc:postgresql://localhost:5432/postgres",
                 "postgres",
-                "admin"
+                "1234"
             )
         } catch (e: Exception) {
             e.printStackTrace()
@@ -42,7 +46,7 @@ class StudentsListDB private constructor(var view:View):StudentListInterface {
         }
     }
 
-    override fun getById(id: Int):Student? {
+    override fun getById(id: Int): Student? {
         val result = executeQuery("SELECT * FROM student WHERE id = ${id};")
         var input = ""
         var id = 0
@@ -54,14 +58,14 @@ class StudentsListDB private constructor(var view:View):StudentListInterface {
                     input+=result.getString(i)+" "
                 }
             }
-            return Student(input,id)
+            return Student(input, id)
         }
         return null
     }
 
-    override fun getKNStudentShort(k:Int,n:Int, filter: String):DataListStudentShort
+    override fun getKNStudentShort(k:Int,n:Int): DataListStudentShort
     {
-        val result = executeQuery("SELECT * FROM student ${filter} ORDER BY id LIMIT ${n} OFFSET ${k*n};")
+        val result = executeQuery("SELECT * FROM student ORDER BY id LIMIT ${n} OFFSET ${k*n};")
         var input = ""
         var sl=mutableListOf<Student>()
         if (result != null) {
@@ -70,17 +74,17 @@ class StudentsListDB private constructor(var view:View):StudentListInterface {
                 for (i in 2..result.metaData.columnCount) {
                     input+=result.getString(i)+" "
                 }
-                sl.add(Student(input,result.getInt(1)))
+                sl.add(Student(input, result.getInt(1)))
             }
         }
-        var ss = sl.map{StudentShort(it)} as MutableList<StudentShort>
+        var ss = sl.map{ StudentShort(it) } as MutableList<StudentShort>
 
-        return DataListStudentShort(ss,view)
+        return DataListStudentShort(ss, view)
     }
 
-    override fun getKNStudent(k:Int,n:Int, filter: String):MutableList<Student>
+    override fun getKNStudent(k:Int,n:Int):MutableList<Student>
     {
-        val result = executeQuery("SELECT * FROM student ${filter} ORDER BY id LIMIT ${n} OFFSET ${k*n};")
+        val result = executeQuery("SELECT * FROM student ORDER BY id LIMIT ${n} OFFSET ${k*n};")
         var input = ""
         var sl=mutableListOf<Student>()
         if (result != null) {
@@ -90,14 +94,14 @@ class StudentsListDB private constructor(var view:View):StudentListInterface {
                     input+=result.getString(i)+" "
                 }
 //                println(input)
-                sl.add(Student(input,result.getInt(1)))
+                sl.add(Student(input, result.getInt(1)))
             }
         }
 
         return sl
     }
 
-    override fun addStudent(student:Student)
+    override fun addStudent(student: Student)
     {
         var input = "'${student.lastname}', '${student.name}', '${student.fathername}'"
         if(student.phone==null){input+=", NULL"}

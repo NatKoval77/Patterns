@@ -7,6 +7,7 @@ class DataTable(private val data: List<List<Any?>>) {
     {
         return data.size
     }
+
     fun getColumns():Int
     {
         return data[0].size

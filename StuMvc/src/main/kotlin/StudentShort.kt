@@ -10,7 +10,6 @@ class StudentShort : StudentSuper {
         git=stud.git
         contact=stud.contact().split(" ").getOrNull(1)
     }
-
     constructor(input:String)
     {
         id=ids
@@ -23,9 +22,9 @@ class StudentShort : StudentSuper {
     {
         var out = "ID: $id, ФИО: $fio"
         if(git!=null)
-            out += ", Гит: $git"
+            out+=", Гит: $git"
         if(contact!=null)
-            out += ", Контакт: $contact"
+            out+=", Контакт: $contact"
         return out
     }
 
@@ -33,9 +32,9 @@ class StudentShort : StudentSuper {
     {
         var out = "$id $fio"
         if(git!=null)
-            out += " $git "
+            out+=" $git "
         if(contact!=null)
-            out += " $contact"
+            out+=" $contact"
         return out
     }
 }

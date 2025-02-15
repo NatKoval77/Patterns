@@ -1,9 +1,14 @@
+package studentLists
+
+import DataListStudentShort
+import Student
+import StudentShort
 import mvc.View
 
 open class StudentListSuper(var view: View) {
     var data:MutableList<Student> = mutableListOf()
 
-    fun getById(id:Int):Student?
+    fun getById(id:Int): Student?
     {
         for(stud in data)
         {
@@ -25,8 +30,8 @@ open class StudentListSuper(var view: View) {
         {
         }
 
-        var ss = s.map{StudentShort(it)} as MutableList<StudentShort>
-        return DataListStudentShort(ss,view)
+        var ss = s.map{ StudentShort(it) } as MutableList<StudentShort>
+        return DataListStudentShort(ss, view)
     }
 
     fun getKNStudent(k: Int, n: Int) : MutableList<Student>
@@ -46,7 +51,7 @@ open class StudentListSuper(var view: View) {
         data.sortBy { it.shortName() }
     }
 
-    fun addStudent(stud:Student)
+    fun addStudent(stud: Student)
     {
         data.add(stud)
     }

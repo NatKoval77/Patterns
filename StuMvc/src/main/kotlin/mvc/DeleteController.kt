@@ -1,10 +1,12 @@
 package mvc
-import studentsLists.StudentList
+import studentLists.StudentList
 
-class DeleteController(var view:View, source:StudentList) {
+class DeleteController(var view:View,source:StudentList) {
+
     private val pg=source
 
-    fun deleteStudent(id:Int) {
+    public fun deleteStudent(id:Int)
+    {
         pg.deleteStudent(id)
     }
 }

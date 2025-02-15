@@ -1,3 +1,6 @@
+package studentLists
+
+import Student
 import mvc.View
 import java.io.File
 import com.fasterxml.jackson.databind.ObjectMapper

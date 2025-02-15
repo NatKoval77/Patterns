@@ -1,7 +1,8 @@
 package strategy
 import mvc.View
 import Student
-import StudentListSuper
+
+import studentLists.StudentListSuper
 
 interface StudentListStrategy {
     var data:MutableList<Student>
@@ -9,7 +10,7 @@ interface StudentListStrategy {
     fun writeToFile(path: String)
 }
 
-class StudentManager(private var strategy: StudentListStrategy,view: View):StudentListSuper(view) {
+class StudentManager(private var strategy: StudentListStrategy,view: View): StudentListSuper(view) {
 
     fun setStrategy(strategy: StudentListStrategy) {
         this.strategy = strategy

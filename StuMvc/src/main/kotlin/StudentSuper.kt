@@ -19,27 +19,34 @@ open class StudentSuper {
     {
         var ids = 0
 
-        fun validatePhone(value:String?): Boolean{
+         fun validatePhone(value:String?): Boolean
+        {
             return value?.matches(Regex("""\+?\d{11}""")) ?: true
         }
 
-        fun validateNames(value:String): Boolean{
+         fun validateNames(value:String): Boolean
+        {
             return value.matches(Regex("""[A-Я]{1}[a-я]*"""))
         }
 
-        fun validateTelegram(value:String?): Boolean{
+        fun validateFatherName(value:String?): Boolean
+        {
+            return value?.matches(Regex("""[A-Я]{1}[a-я]*"""))?:true
+        }
+
+         fun validateTelegram(value:String?): Boolean
+        {
             return value?.matches(Regex("""\@{1}.*""")) ?: true
         }
-
-        fun validateMail(value:String?): Boolean{
+         fun validateMail(value:String?): Boolean
+        {
             return value?.matches(Regex("""\w*\@\w*\.\w*""")) ?: true
         }
-
-        fun validateGit(value:String?): Boolean{
+        fun validateGit(value:String?): Boolean
+        {
             return value?.matches(Regex("""https://github.com/.*""")) ?: true
         }
     }
-
     init
     {
         ids++

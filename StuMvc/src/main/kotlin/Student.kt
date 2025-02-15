@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator
 
 
 class Student : StudentSuper {
-    @field:JsonProperty("lastname") var lastname: String =""
+   @field:JsonProperty("lastname") var lastname: String =""
         set(value)
         {
-            field = if (validateNames(value)) {
+            field = if(validateNames(value)) {
                 value
             } else {
                 ""
@@ -24,13 +24,12 @@ class Student : StudentSuper {
                 ""
             }
         }
-    @field:JsonProperty("fathername") var fathername: String =""
+    @field:JsonProperty("fathername") var fathername: String? =""
         set(value)
         {
-            field = if(validateNames(value)) {
-                value
-            } else {
-                ""
+            if(validateFatherName(value?:""))
+            {
+                field=value
             }
         }
     @field:JsonProperty("phone") var phone: String? =null
@@ -40,7 +39,6 @@ class Student : StudentSuper {
                 field = value
             }
         }
-
     @field:JsonProperty("telegram") var telegram: String? =null
         set(value)
         {
@@ -76,15 +74,15 @@ class Student : StudentSuper {
 
     fun setContacts(_phone: String?=null,_telegram: String?=null,_mail: String?=null)
     {
-        if(_phone!=null && validatePhone(_phone))
+        if(_phone!=null&&validatePhone(_phone))
         {
             phone = _phone
         }
-        if(_telegram!=null && validateTelegram(_telegram))
+        if(_telegram!=null&&validateTelegram(_telegram))
         {
             telegram = _telegram
         }
-        if(_mail!=null && validateMail(_mail))
+        if(_mail!=null&&validateMail(_mail))
         {
             mail = _mail
         }
@@ -106,7 +104,10 @@ class Student : StudentSuper {
 
     fun shortName(): String
     {
-        val res = lastname+" "+name[0]+"."+fathername[0]+". "
+        var res=""
+        if(lastname!=null&&lastname!=""){res+=lastname+" "}
+        if(name!=null&&name!=""){res+=name[0]+"."}
+        if(fathername!=null&&fathername!=""){res+= fathername!![0]+"."}
         return res
     }
 
@@ -132,7 +133,7 @@ class Student : StudentSuper {
         fun readFromTxt(path:String): MutableList<Student>
         {
             val file = File(path)
-            val res = mutableListOf<Student>()
+            var res = mutableListOf<Student>()
             var text:List<String> = listOf()
             try {
                 text = file.readLines()
@@ -180,14 +181,14 @@ class Student : StudentSuper {
         mail=_mail
         git=_git
     }
-    constructor(_lastname:String, _name:String, _fathername:String)
+    constructor(_lastname:String,_name:String,_fathername:String)
     {
         id=ids
         lastname=_lastname
         name=_name
         fathername=_fathername
     }
-    constructor(_lastname:String, _name:String, _fathername:String, _phone:String?=null, _telegram:String?=null, _mail:String?=null, _git:String?=null)
+    constructor(_lastname:String,_name:String,_fathername:String,_phone:String?=null,_telegram:String?=null,_mail:String?=null,_git:String?=null)
     {
         id=ids
         lastname=_lastname

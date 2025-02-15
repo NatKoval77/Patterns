@@ -1,14 +1,14 @@
-package StudentLists
-import MVC.View
+package studentLists
+import mvc.View
 import Student
 
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
+import studentsLists.StudentList
 
 class StudentListTest {
     @Test
     fun getById() {
-        var sl=StudentList("pg",View())
+        var sl= StudentList("pg",View())
         val res = sl.getById(1)
         assert(res?.lastname=="Коваль" && res?.name=="Наталья")
     }
